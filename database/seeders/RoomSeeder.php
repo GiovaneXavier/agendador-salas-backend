@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Seeders;
+
+use App\Infrastructure\Persistence\Eloquent\Models\RoomModel;
+use Illuminate\Database\Seeder;
+
+class RoomSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $rooms = [
+            [
+                'id'           => 'a1b2c3d4-0001-0001-0001-000000000001',
+                'name'         => 'Sala Carvalho',
+                'color_bg'     => '#eae4dc',
+                'color_accent' => '#4a3d2f',
+            ],
+            [
+                'id'           => 'a1b2c3d4-0002-0002-0002-000000000002',
+                'name'         => 'Sala Ipê',
+                'color_bg'     => '#e2e6df',
+                'color_accent' => '#2f4a3d',
+            ],
+        ];
+
+        foreach ($rooms as $data) {
+            RoomModel::updateOrCreate(['id' => $data['id']], $data);
+        }
+    }
+}
