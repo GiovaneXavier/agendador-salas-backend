@@ -1,6 +1,7 @@
 <?php
 
 use App\Domain\Booking\Exceptions\BookingNotFoundException;
+use App\Domain\Booking\Exceptions\NoAvailableSlotException;
 use App\Domain\Booking\Exceptions\SlotUnavailableException;
 use App\Domain\Room\Exceptions\RoomNotFoundException;
 use Illuminate\Foundation\Application;
@@ -17,7 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'api.key' => \App\Http\Middleware\ApiKeyMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
 
@@ -41,6 +44,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (RoomNotFoundException $e): JsonResponse {
             return response()->json([
                 'error'   => 'room_not_found',
+                'message' => $e->getMessage(),
+            ], 404);
+        });
+
+        // 404 — Nenhum slot disponível para sugestão
+        $exceptions->render(function (NoAvailableSlotException $e): JsonResponse {
+            return response()->json([
+                'error'   => 'no_available_slot',
                 'message' => $e->getMessage(),
             ], 404);
         });
