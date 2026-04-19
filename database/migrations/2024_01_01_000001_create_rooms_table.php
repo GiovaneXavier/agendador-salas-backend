@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('name', 200);
             $table->string('color_bg', 20)->default('#f5f3ef');
             $table->string('color_accent', 20)->default('#4a3d2f');
+            $table->unsignedSmallInteger('capacity')->default(0);
+            $table->json('resources')->nullable();
             $table->timestamps();
         });
     }

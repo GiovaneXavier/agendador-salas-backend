@@ -13,6 +13,8 @@ final class RoomOutputDTO
         public readonly string $name,
         public readonly string $colorBg,
         public readonly string $colorAccent,
+        public readonly int    $capacity,
+        public readonly array  $resources,
     ) {}
 
     public static function fromEntity(Room $room): self
@@ -22,6 +24,8 @@ final class RoomOutputDTO
             name:        $room->name(),
             colorBg:     $room->colorBg(),
             colorAccent: $room->colorAccent(),
+            capacity:    $room->capacity(),
+            resources:   $room->resources(),
         );
     }
 }

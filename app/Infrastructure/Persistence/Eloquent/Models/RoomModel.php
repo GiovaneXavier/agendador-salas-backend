@@ -20,6 +20,13 @@ class RoomModel extends Model
         'name',
         'color_bg',
         'color_accent',
+        'capacity',
+        'resources',
+    ];
+
+    protected $casts = [
+        'capacity'  => 'integer',
+        'resources' => 'array',
     ];
 
     public function bookings(): HasMany
