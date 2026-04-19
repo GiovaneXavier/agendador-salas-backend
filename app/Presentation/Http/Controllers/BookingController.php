@@ -6,13 +6,16 @@ namespace App\Presentation\Http\Controllers;
 
 use App\Application\Booking\DTOs\CreateBookingInputDTO;
 use App\Application\Booking\DTOs\ListBookingsInputDTO;
+use App\Application\Booking\DTOs\SuggestBookingInputDTO;
 use App\Application\Booking\UseCases\CancelBookingUseCase;
 use App\Application\Booking\UseCases\CreateBookingUseCase;
 use App\Application\Booking\UseCases\ExtendBookingUseCase;
 use App\Application\Booking\UseCases\ListBookingsUseCase;
+use App\Application\Booking\UseCases\SuggestBookingUseCase;
 use App\Presentation\Http\Requests\CancelBookingRequest;
 use App\Presentation\Http\Requests\CreateBookingRequest;
 use App\Presentation\Http\Requests\ListBookingsRequest;
+use App\Presentation\Http\Requests\SuggestBookingRequest;
 use App\Presentation\Http\Resources\BookingResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -25,6 +28,7 @@ class BookingController extends Controller
         private readonly CreateBookingUseCase  $createBookingUseCase,
         private readonly ExtendBookingUseCase  $extendBookingUseCase,
         private readonly CancelBookingUseCase  $cancelBookingUseCase,
+        private readonly SuggestBookingUseCase $suggestBookingUseCase,
     ) {}
 
     public function index(ListBookingsRequest $request): AnonymousResourceCollection
@@ -66,5 +70,18 @@ class BookingController extends Controller
         $this->cancelBookingUseCase->execute($id, $request->validated('username'));
 
         return response()->json(['message' => 'Reserva cancelada com sucesso.'], 200);
+    }
+
+    public function suggest(SuggestBookingRequest $request): JsonResponse
+    {
+        $input = new SuggestBookingInputDTO(
+            date:            $request->validated('date'),
+            durationMinutes: $request->validated('duration_minutes'),
+            preferredStart:  $request->validated('preferred_start'),
+        );
+
+        $suggestion = $this->suggestBookingUseCase->execute($input);
+
+        return response()->json(['data' => $suggestion]);
     }
 }
