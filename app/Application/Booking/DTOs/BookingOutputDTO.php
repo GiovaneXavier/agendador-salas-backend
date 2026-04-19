@@ -18,6 +18,7 @@ final class BookingOutputDTO
         public readonly string $startTime,
         public readonly string $endTime,
         public readonly string $username,
+        public readonly string $fullName,
         public readonly string $createdAt,
     ) {}
 
@@ -33,7 +34,27 @@ final class BookingOutputDTO
             startTime:       $booking->period()->formatStartTime(),
             endTime:         $booking->period()->formatEndTime(),
             username:        $booking->username(),
+            fullName:        self::resolveFullName($booking->username()),
             createdAt:       $booking->createdAt()->format('Y-m-d\TH:i:s\Z'),
         );
+    }
+
+    // Temporário: será substituído pela API de colaboradores
+    private static function resolveFullName(string $username): string
+    {
+        $map = [
+            'm.silva'      => 'Marina Silva',
+            'time.produto' => 'Time Produto',
+            'c.mendes'     => 'Carla Mendes',
+            'eng.team'     => 'Eng Team',
+            'l.rocha'      => 'Lucas Rocha',
+            'a.beatriz'    => 'Ana Beatriz',
+        ];
+
+        if (isset($map[$username])) {
+            return $map[$username];
+        }
+
+        return implode(' ', array_map('ucfirst', explode('.', $username)));
     }
 }
