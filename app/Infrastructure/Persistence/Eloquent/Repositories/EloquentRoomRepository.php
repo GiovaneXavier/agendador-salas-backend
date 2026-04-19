@@ -33,6 +33,8 @@ final class EloquentRoomRepository implements RoomRepositoryInterface
             name:        $model->name,
             colorBg:     $model->color_bg,
             colorAccent: $model->color_accent,
+            capacity:    (int) ($model->capacity ?? 0),
+            resources:   $model->resources ?? [],
         );
     }
 }

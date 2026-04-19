@@ -18,6 +18,8 @@ class RoomResource extends JsonResource
             'name'         => $this->name,
             'color_bg'     => $this->colorBg,
             'color_accent' => $this->colorAccent,
+            'capacity'     => $this->capacity,
+            'resources'    => $this->resources,
         ];
     }
 }
