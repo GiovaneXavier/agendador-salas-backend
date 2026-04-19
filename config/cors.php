@@ -21,7 +21,7 @@ return [
 
     // Em produção, substitua pelo domínio real do totem/front
     'allowed_origins' => [
-        env('FRONTEND_URL', 'http://localhost:5173'),
+        env('FRONTEND_URL', 'http://localhost:5200'),
     ],
 
     'allowed_origins_patterns' => [],

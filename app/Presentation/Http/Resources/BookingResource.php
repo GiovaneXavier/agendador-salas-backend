@@ -23,6 +23,7 @@ class BookingResource extends JsonResource
             'start_time'       => $this->startTime,
             'end_time'         => $this->endTime,
             'username'         => $this->username,
+            'full_name'        => $this->fullName,
             'created_at'       => $this->createdAt,
         ];
     }
