@@ -82,6 +82,15 @@ class BookingController extends Controller
 
         $suggestion = $this->suggestBookingUseCase->execute($input);
 
-        return response()->json(['data' => $suggestion]);
+        return response()->json(['data' => [
+            'room_id'          => $suggestion->roomId,
+            'room_name'        => $suggestion->roomName,
+            'date'             => $suggestion->date,
+            'start_minute'     => $suggestion->startMinute,
+            'end_minute'       => $suggestion->endMinute,
+            'start_time'       => $suggestion->startTime,
+            'end_time'         => $suggestion->endTime,
+            'duration_minutes' => $suggestion->durationMinutes,
+        ]]);
     }
 }
