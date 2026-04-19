@@ -43,7 +43,7 @@ class BookingController extends Controller
         return BookingResource::collection($bookings);
     }
 
-    public function store(CreateBookingRequest $request): BookingResource
+    public function store(CreateBookingRequest $request): JsonResponse
     {
         $input = new CreateBookingInputDTO(
             roomId:          $request->validated('room_id'),
