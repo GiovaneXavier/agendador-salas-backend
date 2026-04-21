@@ -18,7 +18,7 @@ class RoomSeeder extends Seeder
                 'color_bg'     => '#eae4dc',
                 'color_accent' => '#4a3d2f',
                 'capacity'     => 8,
-                'resources'    => json_encode(['TV', 'HDMI']),
+                'resources'    => ['TV', 'HDMI'],
             ],
             [
                 'id'           => 'a1b2c3d4-0002-0002-0002-000000000002',
@@ -26,7 +26,7 @@ class RoomSeeder extends Seeder
                 'color_bg'     => '#e2e6df',
                 'color_accent' => '#2f4a3d',
                 'capacity'     => 4,
-                'resources'    => json_encode(['QUADRO BRANCO']),
+                'resources'    => ['QUADRO BRANCO'],
             ],
             [
                 'id'           => 'a1b2c3d4-0003-0003-0003-000000000003',
@@ -34,7 +34,7 @@ class RoomSeeder extends Seeder
                 'color_bg'     => '#e4e0f0',
                 'color_accent' => '#3d2f6e',
                 'capacity'     => 12,
-                'resources'    => json_encode(['PROJETOR', 'VIDEOCONFERÊNCIA']),
+                'resources'    => ['PROJETOR', 'VIDEOCONFERÊNCIA'],
             ],
             [
                 'id'           => 'a1b2c3d4-0004-0004-0004-000000000004',
@@ -42,7 +42,7 @@ class RoomSeeder extends Seeder
                 'color_bg'     => '#dfe8e4',
                 'color_accent' => '#2f4a42',
                 'capacity'     => 6,
-                'resources'    => json_encode(['TV', 'QUADRO BRANCO']),
+                'resources'    => ['TV', 'QUADRO BRANCO'],
             ],
         ];
 

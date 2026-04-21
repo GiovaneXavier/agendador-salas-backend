@@ -9,8 +9,8 @@ use App\Domain\Booking\Events\BookingCreated;
 use App\Domain\Booking\Events\BookingExtended;
 use App\Domain\Booking\Repositories\BookingRepositoryInterface;
 use App\Domain\Room\Repositories\RoomRepositoryInterface;
-use App\Infrastructure\Persistence\InMemory\InMemoryBookingRepository;
-use App\Infrastructure\Persistence\InMemory\InMemoryRoomRepository;
+use App\Infrastructure\Persistence\Eloquent\Repositories\EloquentBookingRepository;
+use App\Infrastructure\Persistence\Eloquent\Repositories\EloquentRoomRepository;
 use App\Listeners\Booking\SendBookingCancelledWebhook;
 use App\Listeners\Booking\SendBookingCreatedWebhook;
 use App\Listeners\Booking\SendBookingExtendedWebhook;
@@ -21,10 +21,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        // Repositórios in-memory (sem banco de dados)
-        // Troque por EloquentRoomRepository / EloquentBookingRepository quando o banco estiver configurado.
-        $this->app->singleton(RoomRepositoryInterface::class, InMemoryRoomRepository::class);
-        $this->app->singleton(BookingRepositoryInterface::class, InMemoryBookingRepository::class);
+        $this->app->singleton(RoomRepositoryInterface::class, EloquentRoomRepository::class);
+        $this->app->singleton(BookingRepositoryInterface::class, EloquentBookingRepository::class);
     }
 
     public function boot(): void
