@@ -36,7 +36,8 @@ return [
     ],
 
     'room_status' => [
-        'url' => env('ROOM_STATUS_API_URL', 'http://localhost:9000'),
+        'url'    => env('ROOM_STATUS_API_URL', 'http://localhost:9000'),
+        'secret' => env('ROOM_STATUS_SECRET', ''),
     ],
 
 ];

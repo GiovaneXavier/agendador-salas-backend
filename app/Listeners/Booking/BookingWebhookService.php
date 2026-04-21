@@ -12,9 +12,12 @@ final class BookingWebhookService
 {
     private string $statusApiUrl;
 
+    private string $secret;
+
     public function __construct()
     {
         $this->statusApiUrl = rtrim(config('services.room_status.url', 'http://localhost:9000'), '/');
+        $this->secret = config('services.room_status.secret', '');
     }
 
     public function send(string $event, Booking $booking): void
@@ -32,7 +35,11 @@ final class BookingWebhookService
         )->format('Y-m-d\TH:i:s');
 
         try {
-            Http::timeout(3)->post("{$this->statusApiUrl}/webhooks/booking", [
+            $http = Http::timeout(3);
+            if ($this->secret !== '') {
+                $http = $http->withToken($this->secret);
+            }
+            $http->post("{$this->statusApiUrl}/webhooks/booking", [
                 'event'      => $event,
                 'booking_id' => (string) $booking->id(),
                 'room_id'    => (string) $booking->roomId(),
